@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import { Col } from 'antd';
 import DataTable from '../tables';
 
 const data = [
@@ -37,12 +37,10 @@ const data = [
   },
 ];
 
-const Loans = () => (
-  <Row>
-    <Col xs={24}>
-      <DataTable loanData data={data} />
-    </Col>
-  </Row>
+const Loans = (props) => (
+  <Col xs={24}>
+    <DataTable loanData data={props.loanHistory || data} />
+  </Col>
 );
 
 export default Loans;

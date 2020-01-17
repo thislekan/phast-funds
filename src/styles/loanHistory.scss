@@ -5,3 +5,12 @@
   overflow-y: scroll;
   margin-bottom: 80px;
 }
+
+@media screen and (min-width: 576px) {
+  .loan-history {
+    margin-top: 20px;
+    height: unset;
+    margin-bottom: unset;
+    padding: unset;
+  }
+}

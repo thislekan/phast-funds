@@ -67,24 +67,62 @@
 
 .active-loan {
   &__details {
-    // padding: 5px;
     .data {
       margin: 0 0 5px;
       color: map-get($colors, text-blue);
       letter-spacing: 0.2px;
-      // display: flex;
-      // align-items: center;
-      // justify-content: space-between;
-
-      // b {
-      //   letter-spacing: unset;
-      // }
     }
 
     &__wrapper {
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
+  }
+
+  .reveal-btn-div {
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  &__timeline {
+    margin: 15px 0 0;
+    padding: 15px 10px 0;
+    height: 35vh;
+    overflow-y: scroll;
+    border-radius: 4px;
+    border: 1px solid map-get($colors, albino-blue);
+  }
+}
+
+@media screen and (min-width: 576px) {
+  #user-container {
+    padding: 0 10px;
+
+    .user-details {
+      &__info {
+        &__avatar {
+          // height: 115px;
+          // img {
+          //   height: 115px;
+          // }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 800px) {
+  #user-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+    padding-bottom: 2rem;
+
+    .user-details,
+    .active-loan {
+      height: 230px;
+      margin: 0;
     }
   }
 }

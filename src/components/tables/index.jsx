@@ -76,11 +76,7 @@ const DataTable = (props) => {
         <Table
           onRow={(record, rowIndex) => {
             return {
-              onClick: (event) => {
-                props.loanData
-                  ? props.history.push(`/loans/${record.key}`)
-                  : props.history.push(`/users/${record.key}`);
-              },
+              onClick: (event) => props.history.push(`/details/${record.key}`),
             };
           }}
           columns={columns}
