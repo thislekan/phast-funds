@@ -1,0 +1,35 @@
+.table-wrapper {
+  margin-top: 70px;
+
+  .ant-table-wrapper {
+    height: calc(100vh - 205px);
+    overflow: scroll;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .table-wrapper {
+    margin-top: unset;
+
+    .ant-table {
+      &-wrapper {
+        height: unset;
+      }
+
+      &-body {
+        height: calc(100vh - 220px);
+        overflow-y: scroll;
+      }
+
+      &-empty {
+        .ant-table-body {
+          height: unset;
+        }
+      }
+
+      &-pagination.ant-pagination {
+        margin-right: 20px;
+      }
+    }
+  }
+}

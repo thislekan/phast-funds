@@ -1,0 +1,157 @@
+.sidebar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid map-get($colors, faded-border);
+  z-index: 5;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: map-get($colors, husky-blue);
+
+    &__logo-div,
+    &__logout-div {
+      display: none;
+    }
+
+    &__links-div {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 100%;
+      height: 80px;
+      padding: 10px 5px;
+
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        height: 50px;
+        border-left: 1px solid map-get($colors, dull-white);
+        border-right: 1px solid map-get($colors, dull-white);
+        transition: 500ms ease;
+
+        .nav-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          color: map-get($colors, dull-white);
+
+          i {
+            font-size: 18px;
+            transition: margin-right 300ms ease-in;
+          }
+        }
+      }
+      .wrapper:nth-of-type(odd) {
+        border: unset;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .sidebar {
+    position: unset;
+    bottom: unset;
+    left: unset;
+    z-index: unset;
+    background-color: unset;
+    height: 100vh;
+
+    &__wrapper {
+      flex-direction: column;
+      justify-content: unset;
+      height: 100%;
+
+      &__logo-div,
+      &__logout-div {
+        display: unset;
+      }
+
+      &__logo-div {
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .logo {
+          margin: 0;
+          font-size: 16px;
+          font-weight: bold;
+          color: map-get($colors, dull-white);
+        }
+      }
+
+      &__links-div {
+        margin: 100px 0;
+        height: unset;
+        flex-direction: column;
+        flex-wrap: unset;
+        align-items: unset;
+        padding: unset;
+        width: unset;
+
+        .wrapper {
+          height: 50px;
+          margin-bottom: 20px;
+          align-items: unset;
+          border: unset;
+          padding: 10px 15px;
+
+          &:hover {
+            background-color: map-get($colors, dull-white);
+            border-radius: 5px;
+
+            .nav-item {
+              color: map-get($colors, husky-blue);
+
+              // i {
+              //   margin-right: 25px;
+              // }
+            }
+          }
+
+          .nav-item {
+            border: unset;
+            display: unset;
+            font-size: 16px;
+
+            i {
+              margin-right: 20px;
+              vertical-align: sub;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .sidebar {
+    &__wrapper {
+      &__logo-div {
+        .logo {
+          font-size: 18px;
+        }
+      }
+
+      &__links-div {
+        // margin: 100px 0;
+        .wrapper {
+          // margin-bottom: 30px;
+          .nav-item {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}
