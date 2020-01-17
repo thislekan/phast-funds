@@ -22,7 +22,8 @@ const AppRouter = () => (
             <Switch>
               <Route path="/" component={Users} exact />
               <Route path="/loans" component={Loans} exact />
-              <Route path="/details/:id" component={LoanHistory} exact />
+              <Route path="/details/loans/:id" component={LoanHistory} exact />
+              <Route path="/details/users/:id" component={LoanHistory} exact />
             </Switch>
           </Content>
         </Col>

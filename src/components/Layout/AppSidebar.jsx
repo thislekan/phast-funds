@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Icon, Button } from 'antd';
 
 const AppSideBar = () => (
@@ -9,22 +10,22 @@ const AppSideBar = () => (
       </div>
       <div className="sidebar__wrapper__links-div">
         <div className="wrapper">
-          <a href="/" className="nav-item">
+          <Link to="/" className="nav-item">
             <Icon type="team" />
             <span>Users</span>
-          </a>
+          </Link>
         </div>
         <div className="wrapper">
-          <a href="/loans" className="nav-item">
+          <Link to="/loans" className="nav-item">
             <Icon type="money-collect" />
             <span>Loans</span>
-          </a>
+          </Link>
         </div>
         <div className="wrapper">
-          <a href="/" className="nav-item">
+          <Link to="/" className="nav-item">
             <Icon type="contacts" />
             <span>Profile</span>
-          </a>
+          </Link>
         </div>
       </div>
       <div className="sidebar__wrapper__logout-div">
