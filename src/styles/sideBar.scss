@@ -25,7 +25,7 @@
       height: 80px;
       padding: 10px 5px;
 
-      .wrapper {
+      .nav-item {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -35,21 +35,15 @@
         border-left: 1px solid map-get($colors, dull-white);
         border-right: 1px solid map-get($colors, dull-white);
         transition: 500ms ease;
+        color: map-get($colors, dull-white);
 
-        .nav-item {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          color: map-get($colors, dull-white);
-
-          i {
-            font-size: 18px;
-            transition: margin-right 300ms ease-in;
-          }
+        i {
+          font-size: 18px;
+          transition: margin-right 300ms ease-in;
         }
       }
-      .wrapper:nth-of-type(odd) {
+
+      .nav-item:nth-of-type(odd) {
         border: unset;
       }
     }
@@ -98,35 +92,45 @@
         padding: unset;
         width: unset;
 
-        .wrapper {
+        .nav-item {
           height: 50px;
           margin-bottom: 20px;
-          align-items: unset;
+          flex-direction: row;
+          justify-content: unset;
           border: unset;
+          border-radius: 5px;
           padding: 10px 15px;
+          font-size: 16px;
 
-          &:hover {
-            background-color: map-get($colors, dull-white);
-            border-radius: 5px;
-
-            .nav-item {
-              color: map-get($colors, husky-blue);
-
-              // i {
-              //   margin-right: 25px;
-              // }
-            }
+          i {
+            margin-right: 20px;
+            vertical-align: sub;
           }
+        }
 
-          .nav-item {
-            border: unset;
-            display: unset;
-            font-size: 16px;
+        .nav-item:hover {
+          color: map-get($colors, husky-blue);
+          background-color: map-get($colors, dull-white);
+        }
+      }
 
-            i {
-              margin-right: 20px;
-              vertical-align: sub;
-            }
+      &__logout-div {
+        button {
+          background: #e34234;
+          padding: 10px 15px;
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          border: 1px solid #e34234;
+          outline: none;
+          border-radius: 5px;
+          cursor: pointer;
+          color: white;
+
+          i {
+            vertical-align: sub;
+            margin-right: 20px;
+            // transform: rotate(270deg);
           }
         }
       }
@@ -144,12 +148,8 @@
       }
 
       &__links-div {
-        // margin: 100px 0;
-        .wrapper {
-          // margin-bottom: 30px;
-          .nav-item {
-            font-size: 18px;
-          }
+        .nav-item {
+          font-size: 18px;
         }
       }
     }
