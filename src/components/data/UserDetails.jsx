@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Col, Button, Timeline, Icon } from 'antd';
+import { Button, Timeline, Icon } from 'antd';
 import userImg from '../../images/IG Image.jpg';
 
 const initialState = {
