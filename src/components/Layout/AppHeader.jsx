@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Dropdown, Menu, Button, Avatar } from 'antd';
 
 const menu = () => (
@@ -16,7 +17,7 @@ const Appheader = () => (
   <div>
     <div className="dash-header">
       <div className="dash-header__item">
-        <a href="/">Home</a>
+        <Link to="/">Home</Link>
       </div>
       <div className="dash-header__item dash-header__item--halo">
         <Dropdown overlay={menu}>

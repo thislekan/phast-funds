@@ -96,33 +96,96 @@
 }
 
 @media screen and (min-width: 576px) {
-  #user-container {
+  .user-container {
     padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    .user-details {
-      &__info {
-        &__avatar {
-          // height: 115px;
-          // img {
-          //   height: 115px;
-          // }
-        }
-      }
+    .user-details,
+    .active-loan {
+      width: 350px;
+    }
+
+    &--hide {
+      display: none;
     }
   }
 }
 
 @media screen and (min-width: 800px) {
-  #user-container {
+  .user-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;
-    padding-bottom: 2rem;
+    padding-bottom: 20px;
 
     .user-details,
     .active-loan {
-      height: 230px;
       margin: 0;
+      height: 205px;
+      position: relative;
+      width: unset;
+
+      &__info {
+        height: 130px;
+        overflow-y: scroll;
+
+        &__avatar {
+          height: 130px;
+        }
+
+        &__content {
+          height: 100%;
+          overflow-y: scroll;
+        }
+      }
+
+      &__btns-div {
+        border: unset;
+        padding: unset;
+      }
+
+      &__timeline {
+        position: absolute;
+        top: 0;
+        background: white;
+        height: 130px;
+        width: calc(100% - 10px);
+        overflow-y: scroll;
+      }
+
+      .reveal-btn-div {
+        margin: unset;
+        position: absolute;
+        bottom: 10px;
+        width: calc(100% - 10px);
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .user-container {
+    padding: 0 10% 2rem;
+    .user-details,
+    .active-loan {
+      margin: 10px;
+      height: 215px;
+      padding: 10px;
+      width: 450px;
+
+      &__info {
+        height: 135px;
+
+        &__avatar {
+          height: 135px;
+        }
+      }
+
+      .reveal-btn-div {
+        bottom: 15px;
+      }
     }
   }
 }

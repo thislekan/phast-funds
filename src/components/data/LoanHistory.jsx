@@ -36,6 +36,86 @@ const data = [
     paid: 23000,
     balance: 0,
   },
+  {
+    key: 4,
+    loaned: 23000,
+    duration: '14th Feb, 2019',
+    status: 'completed',
+    paid: 23000,
+    balance: 0,
+  },
+  {
+    key: 5,
+    loaned: 23000,
+    duration: '14th Feb, 2019',
+    status: 'completed',
+    paid: 23000,
+    balance: 0,
+  },
+  {
+    key: 6,
+    loaned: 23000,
+    duration: '14th Feb, 2019',
+    status: 'completed',
+    paid: 23000,
+    balance: 0,
+  },
+  {
+    key: 7,
+    loaned: 23000,
+    duration: '14th Feb, 2019',
+    status: 'completed',
+    paid: 23000,
+    balance: 0,
+  },
+  {
+    key: 8,
+    loaned: 23000,
+    duration: '14th Feb, 2019',
+    status: 'completed',
+    paid: 23000,
+    balance: 0,
+  },
+  {
+    key: 9,
+    loaned: 23000,
+    duration: '14th Feb, 2019',
+    status: 'completed',
+    paid: 23000,
+    balance: 0,
+  },
+  {
+    key: 10,
+    loaned: 23000,
+    duration: '14th Feb, 2019',
+    status: 'completed',
+    paid: 23000,
+    balance: 0,
+  },
+  {
+    key: 11,
+    loaned: 23000,
+    duration: '14th Feb, 2019',
+    status: 'completed',
+    paid: 23000,
+    balance: 0,
+  },
+  {
+    key: 12,
+    loaned: 23000,
+    duration: '14th Feb, 2019',
+    status: 'completed',
+    paid: 23000,
+    balance: 0,
+  },
+  {
+    key: 13,
+    loaned: 23000,
+    duration: '14th Feb, 2019',
+    status: 'completed',
+    paid: 23000,
+    balance: 0,
+  },
 ];
 
 const initialState = { showUserDetails: false };
@@ -46,16 +126,24 @@ const LoanHistory = () => {
     setState({ ...state, showUserDetails: !state.showUserDetails });
 
   return (
-    <div className="loan-history">
-      <div className="user-details-div">
-        <div className="btn-toggler">
-          <Button type="primary" onClick={toggleUserDetails}>
-            User Info
-          </Button>
-        </div>
-        {<UserDetails />}
+    <div
+      className={`${
+        state.showUserDetails
+          ? 'loan-history loan-history--scrolled-height'
+          : 'loan-history'
+      }`}
+    >
+      <div className="user-details-container">
+        <UserDetails hideContainer={state.showUserDetails} />
+        <Button
+          className="user-details-container__toggle-btn"
+          type="primary"
+          onClick={toggleUserDetails}
+        >
+          {state.showUserDetails ? 'Hide User Details' : 'Show User Details'}
+        </Button>
       </div>
-      <Loans LoanHistory={data} />
+      <Loans loanHistory={data} hideLoanHistory={state.showUserDetails} />
     </div>
   );
 };

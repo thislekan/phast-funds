@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import { Col } from 'antd';
 import DataTable from '../tables';
 
 const data = [
@@ -96,11 +96,9 @@ const data = [
 ];
 
 const Users = () => (
-  <Row>
-    <Col xs={24}>
-      <DataTable data={data} />
-    </Col>
-  </Row>
+  <Col xs={24}>
+    <DataTable data={data} />
+  </Col>
 );
 
 export default Users;

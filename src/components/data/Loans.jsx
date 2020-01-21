@@ -38,7 +38,10 @@ const data = [
 ];
 
 const Loans = (props) => (
-  <Col xs={24}>
+  <Col
+    xs={24}
+    className={`${props.hideLoanHistory ? 'hide-loan-history' : ''}`}
+  >
     <DataTable loanData data={props.loanHistory || data} />
   </Col>
 );
