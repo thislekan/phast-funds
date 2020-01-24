@@ -7,6 +7,7 @@ import AppHeader from '../components/Layout/AppHeader';
 import Users from '../components/data/Users';
 import Loans from '../components/data/Loans';
 import LoanHistory from '../components/data/LoanHistory';
+import SingleLoanHistory from '../components/data/SingleLoanHistory';
 
 const { Content } = Layout;
 const AppRouter = () => (
@@ -22,7 +23,11 @@ const AppRouter = () => (
             <Switch>
               <Route path="/" component={Users} exact />
               <Route path="/loans" component={Loans} exact />
-              <Route path="/details/loans/:id" component={LoanHistory} exact />
+              <Route
+                path="/details/loans/:id"
+                component={SingleLoanHistory}
+                exact
+              />
               <Route path="/details/users/:id" component={LoanHistory} exact />
             </Switch>
           </Content>

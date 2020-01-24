@@ -53,8 +53,36 @@ const usersColumns = [
   },
 ];
 
+const singleLoanHistory = [
+  {
+    title: 'Date',
+    dataIndex: 'date',
+    key: 'date',
+  },
+  {
+    title: 'Amount',
+    dataIndex: 'amount',
+    key: 'amount',
+  },
+  {
+    title: 'Method',
+    dataIndex: 'method',
+    key: 'method',
+  },
+  {
+    title: 'Balance',
+    dataIndex: 'balance',
+    key: 'balance',
+  },
+];
+
+const columnsSwitch = (props) => {
+  if (props.loanData) return loanColumns;
+  if (props.singleLoanHistory) return singleLoanHistory;
+  return usersColumns;
+};
+
 const DataTable = (props) => {
-  const columns = props.loanData ? loanColumns : usersColumns;
   return (
     <div className="table-wrapper">
       <div className="dash-header__search">
@@ -72,6 +100,7 @@ const DataTable = (props) => {
           </Form.Item>
         </Form>
       </div>
+      {console.log(props)}
       <div className="table-wrapper__table-content">
         <Table
           onRow={(record, rowIndex) => {
@@ -83,7 +112,7 @@ const DataTable = (props) => {
               },
             };
           }}
-          columns={columns}
+          columns={columnsSwitch(props)}
           dataSource={props.data}
         />
       </div>
