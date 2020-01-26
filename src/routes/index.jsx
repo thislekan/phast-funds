@@ -8,6 +8,7 @@ import Users from '../components/data/Users';
 import Loans from '../components/data/Loans';
 import LoanHistory from '../components/data/LoanHistory';
 import SingleLoanHistory from '../components/data/SingleLoanHistory';
+import Login from '../components/Layout/Login';
 
 const { Content } = Layout;
 const AppRouter = () => (
@@ -21,7 +22,8 @@ const AppRouter = () => (
           <AppHeader />
           <Content>
             <Switch>
-              <Route path="/" component={Users} exact />
+              <Route path="/" component={Login} exact />
+              <Route path="/users" component={Users} exact />
               <Route path="/loans" component={Loans} exact />
               <Route
                 path="/details/loans/:id"

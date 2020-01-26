@@ -1,0 +1,43 @@
+.login {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  height: 100vh;
+  width: 100%;
+  background-color: map-get($colors, plain-white);
+  padding: 20px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  &__body {
+    &__title {
+      margin-bottom: 20px;
+    }
+    height: 300px;
+    box-shadow: 0 1px 2px 2px map-get($colors, faded-border);
+    padding: 10px 15px;
+    border-radius: 5px;
+    border-top: 5px solid map-get($colors, husky-blue);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+
+    &__form {
+      .ant-form-item {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .login {
+    justify-content: unset;
+    padding: 150px 0;
+  }
+}
