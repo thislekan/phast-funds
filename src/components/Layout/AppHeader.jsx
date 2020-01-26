@@ -17,7 +17,7 @@ const Appheader = () => (
   <div>
     <div className="dash-header">
       <div className="dash-header__item">
-        <Link to="/">Home</Link>
+        <Link to="/users">Home</Link>
       </div>
       <div className="dash-header__item dash-header__item--halo">
         <Dropdown overlay={menu}>

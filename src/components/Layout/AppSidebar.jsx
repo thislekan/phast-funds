@@ -9,7 +9,7 @@ const AppSideBar = () => (
         <p className="logo">Phast Money</p>
       </div>
       <div className="sidebar__wrapper__links-div">
-        <Link to="/" className="nav-item">
+        <Link to="/users" className="nav-item">
           <Icon type="team" />
           <span>Users</span>
         </Link>
