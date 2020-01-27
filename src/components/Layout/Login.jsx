@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { Form, Icon, Input, Button, Checkbox, Col, Modal } from 'antd';
 import { emailCheck, passwordCheck } from '../../utils/index';
+import { userLogin } from '../../utils/userAuth';
 
 const initialState = { email: '', password: '' };
 const Login = () => {
   const [state, setState] = useState(initialState);
   const [formError, setFormError] = useState({ error: '' });
   const [modalState, setModalState] = useState({ visible: false });
-  const history = useHistory();
+  // const history = useHistory();
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -54,7 +55,7 @@ const Login = () => {
                 e.preventDefault();
                 const errorExists = checkFormError();
                 if (errorExists) return;
-                history.push('/users');
+                userLogin({ ...state });
               }}
               className="login-form"
             >

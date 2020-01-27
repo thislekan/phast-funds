@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Table, Form, Icon, Input, Button } from 'antd';
 
@@ -83,6 +83,11 @@ const columnsSwitch = (props) => {
 };
 
 const DataTable = (props) => {
+  const [state, setState] = useState({ data: [] });
+  const filterData = (e) => {
+    const { value } = e.target;
+    setState({ data: [...value] });
+  };
   return (
     <div className="table-wrapper">
       <div className="dash-header__search">
@@ -91,7 +96,11 @@ const DataTable = (props) => {
             <Input
               prefix={<Icon type="form" />}
               placeholder="Enter search item"
+              onChange={filterData}
             />
+            {/* <button className="search-cancel">
+              <Icon type="delete" />
+            </button> */}
           </Form.Item>
           <Form.Item>
             <Button htmlType="submit" type="primary">
@@ -100,20 +109,19 @@ const DataTable = (props) => {
           </Form.Item>
         </Form>
       </div>
-      {console.log(props)}
       <div className="table-wrapper__table-content">
         <Table
           onRow={(record, rowIndex) => {
             return {
               onClick: () => {
-                props.location.pathname === '/'
+                props.location.pathname === '/users'
                   ? props.history.push(`/details/users/${record.key}`)
                   : props.history.push(`/details/loans/${record.key}`);
               },
             };
           }}
           columns={columnsSwitch(props)}
-          dataSource={props.data}
+          dataSource={(state.data.length && state.data) || props.data}
         />
       </div>
     </div>
