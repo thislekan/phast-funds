@@ -1,37 +1,67 @@
 import React, { useState } from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Form, Icon, Input, Button, Checkbox, Col, Modal } from 'antd';
 import { emailCheck, passwordCheck } from '../../utils/index';
-import { userLogin } from '../../utils/userAuth';
+import { handleResponse, endpoint, userAuth } from '../../utils/userAuth';
 
-const initialState = { email: '', password: '' };
+const initialState = {
+  user: { email: '', password: '' },
+  error: '',
+  showModal: false,
+};
+const options = {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({}),
+};
+
 const Login = () => {
   const [state, setState] = useState(initialState);
-  const [formError, setFormError] = useState({ error: '' });
-  const [modalState, setModalState] = useState({ visible: false });
-  // const history = useHistory();
+  const history = useHistory();
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: '/users' } };
+  const toggleModal = () => setState({ ...state, showModal: false, error: '' });
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
-    const formData = { ...state, [name]: value };
-    setState(formData);
+    const formData = { ...state.user, [name]: value };
+    setState({ ...state, user: { ...formData } });
   };
 
   const checkFormError = () => {
-    const emailError = emailCheck(state.email, 'email');
-    const passwordError = passwordCheck(state.password, 'password');
+    const emailError = emailCheck(state.user.email, 'email');
+    const passwordError = passwordCheck(state.user.password, 'password');
 
     if (emailError || passwordError) {
-      setFormError({ error: emailError || passwordError });
-      setModalState({ visible: true });
+      setState({
+        ...state,
+        error: emailError || passwordError,
+        showModal: true,
+      });
       return true;
     }
     return;
   };
 
-  const toggleModal = () => {
-    setModalState({ visible: false });
-    setFormError({ error: '' });
+  const userLogin = (e) => {
+    e.preventDefault();
+    const errorExists = checkFormError();
+    if (errorExists) return;
+    options.body = JSON.stringify({ ...state.user });
+
+    fetch(`${endpoint}accounts/login/`, options)
+      .then(handleResponse)
+      .then((res) => {
+        sessionStorage.setItem('token', res.token);
+        userAuth.authenticate(() => history.replace(from));
+      })
+      .catch((err) => {
+        setState({
+          ...state,
+          error: err.message.non_field_errors[0],
+          showModal: true,
+        });
+      });
   };
 
   return (
@@ -39,26 +69,18 @@ const Login = () => {
       <div className="login__body">
         <Modal
           title="Basic Modal"
-          visible={modalState.visible}
+          visible={state.showModal}
           onOk={toggleModal}
           onCancel={toggleModal}
         >
-          <p>{formError.error}</p>
+          <p>{state.error}</p>
         </Modal>
         <div className="login__body__title">
           <h2>Member Login</h2>
         </div>
         <div className="login__body__form">
           <Col xs={24}>
-            <Form
-              onSubmit={(e) => {
-                e.preventDefault();
-                const errorExists = checkFormError();
-                if (errorExists) return;
-                userLogin({ ...state });
-              }}
-              className="login-form"
-            >
+            <Form onSubmit={userLogin} className="login-form">
               <Col xs={24}>
                 <Form.Item>
                   <Input
