@@ -1,4 +1,4 @@
-export const userAuth = {
+const userAuth = {
   isAuthenticated: false,
   confirmToken: () => {
     const token = sessionStorage.getItem('token');

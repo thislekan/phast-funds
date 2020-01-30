@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Form, Icon, Input, Button, Checkbox, Col, Modal } from 'antd';
 import { emailCheck, passwordCheck } from '../../utils/index';
-import { handleResponse, endpoint, userAuth } from '../../utils/userAuth';
+import userAuth, { handleResponse, endpoint } from '../../utils/userAuth';
 
 const initialState = {
   user: { email: '', password: '' },

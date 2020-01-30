@@ -4,14 +4,19 @@ import { Table, Form, Icon, Input, Button } from 'antd';
 
 const loanColumns = [
   {
-    title: 'Loaned',
-    dataIndex: 'loaned',
-    key: 'loaned',
+    title: 'Amount',
+    dataIndex: 'amount',
+    key: 'amount',
   },
   {
-    title: 'Duration',
-    dataIndex: 'duration',
-    key: 'duration',
+    title: 'User',
+    dataIndex: 'user',
+    key: 'user',
+  },
+  {
+    title: 'Active',
+    dataIndex: 'active',
+    key: 'active',
   },
   {
     title: 'Status',
@@ -19,14 +24,14 @@ const loanColumns = [
     key: 'status',
   },
   {
-    title: 'Paid',
-    dataIndex: 'paid',
-    key: 'paid',
+    title: 'Applied',
+    dataIndex: 'applied',
+    key: 'applied',
   },
   {
-    title: 'Balance',
-    dataIndex: 'balance',
-    key: 'balance',
+    title: 'Purpose',
+    dataIndex: 'purpose',
+    key: 'purpose',
   },
 ];
 
@@ -122,6 +127,8 @@ const DataTable = (props) => {
           }}
           columns={columnsSwitch(props)}
           dataSource={(state.data.length && state.data) || props.data}
+          loading={props.isLoading}
+          pagination={{ showSizeChanger: true }}
         />
       </div>
     </div>
