@@ -51,7 +51,24 @@
     margin: unset;
 
     .details-wrapper {
-      padding: 0 20%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      padding: 0 10px;
+      grid-column-gap: 15px;
+
+      .user-details {
+        height: 230px;
+
+        &__info {
+          height: 135px;
+
+          &__content {
+            overflow-y: scroll;
+            height: 100%;
+          }
+        }
+      }
     }
 
     .table-wrapper .ant-table-body {
@@ -63,7 +80,7 @@
 @media screen and (min-width: 900px) {
   .single-loan {
     .details-wrapper {
-      padding: 0 30%;
+      // padding: 0 30%;
     }
   }
 }

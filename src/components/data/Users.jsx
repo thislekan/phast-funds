@@ -8,6 +8,7 @@ const formatData = (info) => ({
   name: `${info.first_name} ${info.last_name}`,
   email: info.email,
   phone: info.phone ? info.phone : '----',
+  info,
 });
 
 const Users = () => {
@@ -31,6 +32,7 @@ const Users = () => {
       setState({ data: userData, loading: false });
     }
     getAllUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

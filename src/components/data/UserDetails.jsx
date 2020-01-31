@@ -1,10 +1,64 @@
 import React, { useState } from 'react';
 import { Button, Timeline, Icon } from 'antd';
+import apiCall from '../../utils/apiCall';
 import userImg from '../../images/IG Image.jpg';
 
 const initialState = {
   showHistory: false,
 };
+
+const fetchData = async (filter, id) => {
+  const response = await apiCall(
+    `device-info/?filter=${filter}&user=${id}`,
+    'GET',
+    null,
+    true
+  );
+  console.log(response);
+};
+
+export const UserCard = ({ user }) => (
+  <div className="user-details">
+    <div className="user-details__info">
+      <div className="user-details__info__avatar">
+        <img src={userImg} alt="user name" />
+      </div>
+      <div className="user-details__info__content">
+        <p className="data name">
+          <b>Name: </b>
+          {user.first_name + ' ' + user.last_name}
+        </p>
+        <p className="data email">
+          <b>Email: </b>
+          {user.email}
+        </p>
+        <p className="data phone">
+          <b>Phone: </b>
+          {user.phone_number}
+        </p>
+        <p className="data address">
+          <b>Address: </b> {user.address}
+        </p>
+      </div>
+    </div>
+    <div className="user-details__btns-div">
+      <button
+        className="btn btn--calls"
+        onClick={() => fetchData('call_logs', user.id)}
+      >
+        <Icon type="download" />
+        Call Log
+      </button>
+      <button
+        className="btn btn--sms"
+        onClick={() => fetchData('sms', user.id)}
+      >
+        <Icon type="download" />
+        SMS Data
+      </button>
+    </div>
+  </div>
+);
 
 const UserDetails = (props) => {
   const [state, setState] = useState(initialState);
@@ -18,38 +72,7 @@ const UserDetails = (props) => {
           : 'user-container user-container--hide'
       }`}
     >
-      <div className="user-details">
-        <div className="user-details__info">
-          <div className="user-details__info__avatar">
-            <img src={userImg} alt="user name" />
-          </div>
-          <div className="user-details__info__content">
-            <p className="data name">
-              <b>Name: </b>Firstname Lastname
-            </p>
-            <p className="data email">
-              <b>Email: </b>you@sample.com
-            </p>
-            <p className="data phone">
-              <b>Phone: </b>0903458989
-            </p>
-            <p className="data address">
-              <b>Address: </b> 67B, Block A, Flat 4, Zhengshou, China. jkjjksdj
-              jdfkjdfjkjfd kdioweiowe owekewkled
-            </p>
-          </div>
-        </div>
-        <div className="user-details__btns-div">
-          <button className="btn btn--calls">
-            <Icon type="download" />
-            Call Log
-          </button>
-          <button className="btn btn--sms">
-            <Icon type="download" />
-            SMS Data
-          </button>
-        </div>
-      </div>
+      <UserCard user={props.user} />
       <div className="active-loan">
         <div className="active-loan__details">
           <div className="active-loan__details__wrapper">

@@ -6,12 +6,13 @@ import apiCall from '../../utils/apiCall';
 
 const formatData = (info) => ({
   key: info.id,
-  amount: info.amount,
+  amount: `₦${Number(info.amount).toLocaleString()}`,
   status: info.status,
   active: info.is_active ? 'Active' : 'Not Active',
   applied: moment(info.applied_date).format('MMM Do YYYY'),
   purpose: info.purpose,
   user: info.user.email,
+  info,
 });
 
 const Loans = (props) => {
@@ -27,18 +28,20 @@ const Loans = (props) => {
     const getAllLoans = async () => {
       setState({ ...state, loading: true });
       const response = await apiCall('loans/', 'GET', null, true);
+
       if (response.message) {
         return errorCatcher(response.message.non_field_errors[0]);
       }
+
       const loanData = [];
       response.results.forEach((element) => {
         const formatted = formatData(element);
         loanData.push(formatted);
       });
       setState({ data: loanData, loading: false });
-      console.log(response);
     };
     getAllLoans();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Col

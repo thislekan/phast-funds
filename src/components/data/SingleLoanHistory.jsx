@@ -1,151 +1,71 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import moment from 'moment';
 import Table from '../tables/index';
+import LoanDetails from './LoanDetails';
+import apiCall from '../../utils/apiCall';
 
-const data = [
-  {
-    key: 0,
-    date: '23rd April, 2002',
-    amount: 345000,
-    method: 'Transfer',
-    balance: 5000,
-  },
-  {
-    key: 1,
-    date: '23rd April, 2002',
-    amount: 345000,
-    method: 'Transfer',
-    balance: 5000,
-  },
-  {
-    key: 2,
-    date: '23rd April, 2002',
-    amount: 345000,
-    method: 'Transfer',
-    balance: 5000,
-  },
-  {
-    key: 3,
-    date: '23rd April, 2002',
-    amount: 345000,
-    method: 'Transfer',
-    balance: 5000,
-  },
-  {
-    key: 4,
-    date: '23rd April, 2002',
-    amount: 345000,
-    method: 'Transfer',
-    balance: 5000,
-  },
-  {
-    key: 5,
-    date: '23rd April, 2002',
-    amount: 345000,
-    method: 'Transfer',
-    balance: 5000,
-  },
-  {
-    key: 6,
-    date: '23rd April, 2002',
-    amount: 345000,
-    method: 'Transfer',
-    balance: 5000,
-  },
-  {
-    key: 7,
-    date: '23rd April, 2002',
-    amount: 345000,
-    method: 'Transfer',
-    balance: 5000,
-  },
-  {
-    key: 8,
-    date: '23rd April, 2002',
-    amount: 345000,
-    method: 'Transfer',
-    balance: 5000,
-  },
-  {
-    key: 9,
-    date: '23rd April, 2002',
-    amount: 345000,
-    method: 'Transfer',
-    balance: 5000,
-  },
-  {
-    key: 10,
-    date: '23rd April, 2002',
-    amount: 345000,
-    method: 'Transfer',
-    balance: 5000,
-  },
-  {
-    key: 11,
-    date: '23rd April, 2002',
-    amount: 345000,
-    method: 'Transfer',
-    balance: 5000,
-  },
-  {
-    key: 12,
-    date: '23rd April, 2002',
-    amount: 345000,
-    method: 'Transfer',
-    balance: 5000,
-  },
-];
+const formatData = (info) => ({
+  key: info.id,
+  amount: info.amount,
+  method: info.method,
+  date: moment(info.date_repaid).format('MMM Do YYYY'),
+  info,
+});
 
-const SingleLoanHistory = () => (
-  <div className="single-loan">
-    <div className="details-wrapper">
-      <div className="single-loan__details">
-        <div className="card-title">
-          <p>
-            <b>Loan Details</b>
-          </p>
-        </div>
-        <div className="data amount">
-          <p>
-            <b>Amount: </b>
-          </p>
-          <p>
-            <span className="naira">&#x20A6;</span>5,000
-          </p>
-        </div>
-        <div className="data duration">
-          <p>
-            <b>Duration: </b>
-          </p>
-          <p>23rd Feb, 2019</p>
-        </div>
-        <div className="data ">
-          <p>
-            <b>Status: </b>
-          </p>
-          <p>Inactive</p>
-        </div>
-        <div className="data">
-          <p>
-            <b>Paid: </b>
-          </p>
-          <p>
-            <span className="naira">&#x20A6;</span>345,000
-          </p>
-        </div>
-        <div className="data">
-          <p>
-            <b>Balance: </b>
-          </p>
-          <p>
-            <span className="naira">&#x20A6;</span>5,000
-          </p>
-        </div>
+/**
+ * @todo - finish up this task and add a modal for errors
+ */
+
+const SingleLoanHistory = () => {
+  const { id } = useParams();
+  const [state, setState] = useState({
+    history: [],
+    error: '',
+    loading: false,
+  });
+  const errorCatcher = (error) =>
+    setState({
+      ...state,
+      error,
+      // showModal: true,
+    });
+  useEffect(() => {
+    const getLoanDetails = async () => {
+      setState({ ...state, loading: true });
+      const response = await apiCall(
+        `loans/repayments-history/${id}`,
+        'GET',
+        null,
+        true
+      );
+
+      if (response.message) {
+        return errorCatcher(response.message.non_field_errors[0]);
+      }
+
+      const loanHistory = [];
+      response.results.forEach((element) => {
+        const formatted = formatData(element);
+        loanHistory.push(formatted);
+      });
+      setState({ history: loanHistory, loading: false });
+    };
+    getLoanDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return (
+    <div className="single-loan">
+      <LoanDetails />
+      <div className="repayment-table">
+        <Table
+          singleLoanHistory
+          data={state.history}
+          isLoading={state.loading}
+        />
       </div>
     </div>
-    <div className="repayment-table">
-      <Table singleLoanHistory data={data} />
-    </div>
-  </div>
-);
+  );
+};
 
 export default SingleLoanHistory;

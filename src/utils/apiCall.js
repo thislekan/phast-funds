@@ -31,16 +31,12 @@ const formatOptions = (method, authorize, payload) => {
 };
 
 const apiCall = async (route, method, payload, authorize) => {
-  console.log('fired', route, method);
   let data;
   let apiError;
   const apiOptions = formatOptions(method, authorize, payload);
   await fetch(endpoint + route, apiOptions)
     .then(handleResponse)
-    .then((res) => {
-      console.log('got here for success');
-      data = res;
-    })
+    .then((res) => (data = res))
     .catch((err) => (apiError = err));
 
   if (apiError) return { ...apiError };

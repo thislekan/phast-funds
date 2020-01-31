@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, useHistory, useLocation } from 'react-router-dom';
 import { Table, Form, Icon, Input, Button } from 'antd';
 
 const loanColumns = [
@@ -74,11 +74,11 @@ const singleLoanHistory = [
     dataIndex: 'method',
     key: 'method',
   },
-  {
-    title: 'Balance',
-    dataIndex: 'balance',
-    key: 'balance',
-  },
+  // {
+  //   title: 'Balance',
+  //   dataIndex: 'balance',
+  //   key: 'balance',
+  // },
 ];
 
 const columnsSwitch = (props) => {
@@ -88,11 +88,14 @@ const columnsSwitch = (props) => {
 };
 
 const DataTable = (props) => {
-  const [state, setState] = useState({ data: [] });
+  const history = useHistory();
+  const { pathname } = useLocation();
+  const [state, setState] = useState({ data: [], info: {} });
   const filterData = (e) => {
     const { value } = e.target;
     setState({ data: [...value] });
   };
+
   return (
     <div className="table-wrapper">
       <div className="dash-header__search">
@@ -119,9 +122,11 @@ const DataTable = (props) => {
           onRow={(record, rowIndex) => {
             return {
               onClick: () => {
-                props.location.pathname === '/users'
-                  ? props.history.push(`/details/users/${record.key}`)
-                  : props.history.push(`/details/loans/${record.key}`);
+                if (props.singleLoanHistory) return;
+                sessionStorage.setItem('info', JSON.stringify(record.info));
+                pathname === '/users'
+                  ? history.push(`/details/users/${record.key}`)
+                  : history.push(`/details/loans/${record.key}`);
               },
             };
           }}
