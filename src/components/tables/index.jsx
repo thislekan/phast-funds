@@ -14,9 +14,9 @@ const loanColumns = [
     key: 'user',
   },
   {
-    title: 'Active',
-    dataIndex: 'active',
-    key: 'active',
+    title: 'Tenor',
+    dataIndex: 'tenor',
+    key: 'tenor',
   },
   {
     title: 'Status',
@@ -24,7 +24,7 @@ const loanColumns = [
     key: 'status',
   },
   {
-    title: 'Applied',
+    title: 'Application Date',
     dataIndex: 'applied',
     key: 'applied',
   },
@@ -33,6 +33,11 @@ const loanColumns = [
     dataIndex: 'purpose',
     key: 'purpose',
   },
+  // {
+  //   title: 'Due Date',
+  //   dataIndex: 'due',
+  //   key: 'due',
+  // },
 ];
 
 const usersColumns = [
@@ -40,6 +45,7 @@ const usersColumns = [
     title: 'Avatar',
     dataIndex: 'avatar',
     key: 'avatar',
+    render: (src) => <img src={src} alt="avatar" />,
   },
   {
     title: 'Name',
@@ -81,6 +87,16 @@ const singleLoanHistory = [
   // },
 ];
 
+const addOrRemoveDueDate = (route) => {
+  if (route.includes('/details/users'))
+    return (loanColumns[6] = {
+      title: 'Due Date',
+      dataIndex: 'due',
+      key: 'due',
+    });
+  delete loanColumns[6];
+};
+
 const columnsSwitch = (props) => {
   if (props.loanData) return loanColumns;
   if (props.singleLoanHistory) return singleLoanHistory;
@@ -91,6 +107,7 @@ const DataTable = (props) => {
   const history = useHistory();
   const { pathname } = useLocation();
   const [state, setState] = useState({ data: [], info: {} });
+  addOrRemoveDueDate(pathname);
   const filterData = (e) => {
     const { value } = e.target;
     setState({ data: [...value] });
@@ -134,6 +151,7 @@ const DataTable = (props) => {
           dataSource={(state.data.length && state.data) || props.data}
           loading={props.isLoading}
           pagination={{ showSizeChanger: true }}
+          title={() => props.title}
         />
       </div>
     </div>

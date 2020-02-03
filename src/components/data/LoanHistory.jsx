@@ -10,10 +10,11 @@ const formatData = (info) => ({
   key: info.id,
   amount: `₦${Number(info.amount).toLocaleString()}`,
   status: info.status,
-  active: info.is_active ? 'Active' : 'Not Active',
+  tenor: `${info.tenor} days`,
   applied: moment(info.applied_date).format('MMM Do YYYY'),
   purpose: info.purpose,
   user: info.user.email,
+  due: moment(info.due_date).format('MMM Do YYYY'),
   info,
 });
 const initialState = { showUserDetails: false, history: [], loading: false };

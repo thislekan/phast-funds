@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Form, Icon, Input, Button, Checkbox, Col, Modal } from 'antd';
+import { Form, Icon, Input, Button, Col, Modal, Spin } from 'antd';
 import { emailCheck, passwordCheck } from '../../utils/index';
 import userAuth, { handleResponse, endpoint } from '../../utils/userAuth';
 
@@ -8,6 +8,7 @@ const initialState = {
   user: { email: '', password: '' },
   error: '',
   showModal: false,
+  loading: false,
 };
 const options = {
   method: 'POST',
@@ -48,11 +49,13 @@ const Login = () => {
     const errorExists = checkFormError();
     if (errorExists) return;
     options.body = JSON.stringify({ ...state.user });
+    setState({ ...state, loading: true });
 
     fetch(`${endpoint}accounts/login/`, options)
       .then(handleResponse)
       .then((res) => {
         sessionStorage.setItem('token', res.token);
+        setState({ ...state, loading: false });
         userAuth.authenticate(() => history.replace(from));
       })
       .catch((err) => {
@@ -78,6 +81,11 @@ const Login = () => {
         <div className="login__body__title">
           <h2>Member Login</h2>
         </div>
+        {state.loading && (
+          <div className="spin-div">
+            <Spin size="large" />
+          </div>
+        )}
         <div className="login__body__form">
           <Col xs={24}>
             <Form onSubmit={userLogin} className="login-form">
@@ -109,14 +117,6 @@ const Login = () => {
               </Col>
               <Col xs={24}>
                 <Form.Item>
-                  <Col xs={12}>
-                    <Checkbox>Remember me</Checkbox>
-                  </Col>
-                  <Col xs={12}>
-                    <a className="login-form-forgot" href="/">
-                      Forgot password
-                    </a>
-                  </Col>
                   <Col xs={24} style={{ textAlign: 'center' }}>
                     <Button
                       type="primary"

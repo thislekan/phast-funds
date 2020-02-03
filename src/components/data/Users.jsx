@@ -7,14 +7,14 @@ const formatData = (info) => ({
   key: info.id,
   name: `${info.first_name} ${info.last_name}`,
   email: info.email,
-  phone: info.phone ? info.phone : '----',
+  phone: info.phone_number ? info.phone_number : '----',
+  avatar: info.profile_picture,
   info,
 });
 
 const Users = () => {
   const [state, setState] = useState({ data: [], loading: false, error: '' });
   useEffect(() => {
-    console.log('mounted');
     async function getAllUsers() {
       setState({ ...state, loading: true });
       const response = await apiCall('accounts/users/', 'GET', null, true);
@@ -37,7 +37,11 @@ const Users = () => {
 
   return (
     <Col xs={24}>
-      <DataTable data={state.data} isLoading={state.loading} />
+      <DataTable
+        data={state.data}
+        isLoading={state.loading}
+        title="Users Table"
+      />
     </Col>
   );
 };

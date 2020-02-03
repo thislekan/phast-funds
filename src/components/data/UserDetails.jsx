@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { Button, Timeline, Icon } from 'antd';
 import apiCall from '../../utils/apiCall';
-import userImg from '../../images/IG Image.jpg';
 
 const initialState = {
   showHistory: false,
@@ -21,7 +21,7 @@ export const UserCard = ({ user }) => (
   <div className="user-details">
     <div className="user-details__info">
       <div className="user-details__info__avatar">
-        <img src={userImg} alt="user name" />
+        <img src={user.profile_picture} alt="user name" />
       </div>
       <div className="user-details__info__content">
         <p className="data name">
@@ -61,9 +61,23 @@ export const UserCard = ({ user }) => (
 );
 
 const UserDetails = (props) => {
+  const { id } = useParams();
   const [state, setState] = useState(initialState);
   const toggleLoanHistory = () =>
     setState({ ...state, showHistory: !state.showHistory });
+  useEffect(() => {
+    const getActiveLoan = async () => {
+      const response = await apiCall(
+        `loans/active-loan/${id}`,
+        'GET',
+        null,
+        true
+      );
+      console.log(response, '++');
+    };
+    getActiveLoan();
+  });
+
   return (
     <div
       className={`${

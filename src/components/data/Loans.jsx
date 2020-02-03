@@ -8,7 +8,7 @@ const formatData = (info) => ({
   key: info.id,
   amount: `₦${Number(info.amount).toLocaleString()}`,
   status: info.status,
-  active: info.is_active ? 'Active' : 'Not Active',
+  tenor: `${info.tenor} days`,
   applied: moment(info.applied_date).format('MMM Do YYYY'),
   purpose: info.purpose,
   user: info.user.email,
@@ -52,6 +52,7 @@ const Loans = (props) => {
         loanData
         data={props.loanHistory || state.data}
         isLoading={state.loading}
+        title="Loans Table"
       />
     </Col>
   );

@@ -4,6 +4,12 @@
   .ant-table-wrapper {
     height: calc(100vh - 205px);
     overflow: scroll;
+
+    img {
+      height: 40px;
+      width: 40px;
+      border-radius: 100%;
+    }
   }
 
   // .search-cancel {
@@ -36,7 +42,7 @@
       }
 
       &-body {
-        height: calc(100vh - 220px);
+        height: calc(100vh - 270px);
         overflow-y: scroll;
       }
 
