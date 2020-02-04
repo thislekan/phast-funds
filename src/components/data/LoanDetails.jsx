@@ -1,11 +1,15 @@
-import React from 'react';
-import { UserCard } from './UserDetails';
+import React, { useState } from 'react';
+import UserCard from './UserCard';
+import UserDetailsModal from './UserDetailsModal';
 
 const LoanDetails = () => {
   const details = JSON.parse(sessionStorage.getItem('info'));
+  const [state, setState] = useState({ showDetailsModal: false });
+  const toggleDetailsModal = () =>
+    setState({ ...state, showDetailsModal: !state.showDetailsModal });
   return (
     <div className="details-wrapper">
-      <UserCard user={details.user} />
+      <UserCard user={details.user} toggleDetailsModal={toggleDetailsModal} />
       <div className="single-loan__details">
         <div className="card-title">
           <p>
@@ -60,6 +64,14 @@ const LoanDetails = () => {
           </p>
         </div>
       </div>
+
+      {state.showDetailsModal && (
+        <UserDetailsModal
+          showDetailsModal={state.showDetailsModal}
+          toggleDetailsModal={toggleDetailsModal}
+          user={details.user}
+        />
+      )}
     </div>
   );
 };
