@@ -1,0 +1,188 @@
+.next-of-kin-card,
+.bank-info,
+.employment-info,
+.user-info-div {
+  background-image: url('../images/bffb472.svg');
+  background-position: center;
+  background-size: cover;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 20px 0;
+
+  .top-div {
+    margin-top: 5px;
+    display: flex;
+    align-items: baseline;
+
+    h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: map-get($colors, faded-border);
+    }
+
+    .icon {
+      margin-right: 5px;
+      .anticon {
+        font-size: 55px;
+        color: map-get($colors, faded-border);
+      }
+    }
+  }
+
+  .details {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 5px;
+    width: 100%;
+
+    &__wrapper {
+      margin: 10px 0;
+      .data,
+      .label {
+        margin: 3px 0;
+        font-weight: 500;
+        color: map-get($colors, plain-white);
+        text-transform: capitalize;
+        word-break: break-all;
+
+        &--email {
+          text-transform: unset;
+        }
+      }
+
+      .label {
+        color: map-get($colors, dull-white);
+        font-weight: 300;
+        margin: 0;
+      }
+    }
+  }
+
+  &__cta-btns {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    margin-top: 15px;
+
+    .btn {
+      height: 35px;
+      width: 110px;
+      border-radius: 4px;
+
+      i {
+        font-size: 14px;
+        margin-right: 10px;
+      }
+
+      &--calls {
+        background: map-get($colors, call-green);
+        border: 1px solid map-get($colors, call-green);
+        color: map-get($colors, plain-white);
+      }
+
+      &--sms {
+        background: map-get($colors, albino-blue);
+        border: 1px solid map-get($colors, albino-blue);
+        color: map-get($colors, plain-white);
+      }
+    }
+  }
+}
+
+.bank-info {
+  margin: 20px 0;
+  background-image: url('../images/Slanted-Gradient.svg');
+
+  .top-div {
+    h3 {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.employment-info {
+  background-image: url('../images/Rose-Petals.svg');
+  .top-div {
+    img {
+      height: 80px;
+      width: 55px;
+    }
+
+    h3 {
+      margin: unset;
+    }
+  }
+}
+
+.user-info-div {
+  background-image: url('../images/Confetti-Doodles\ \(2\).svg');
+  .title {
+    text-align: center;
+    h3 {
+      color: map-get($colors, faded-border);
+      font-size: 20px;
+    }
+  }
+  .details {
+    margin: unset;
+    &__wrapper {
+      margin: 5px 0;
+      .data {
+        color: map-get($colors, husky-blue);
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 425px) {
+  .bank-info,
+  .employment-info,
+  .user-info-div {
+    .details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: 15px;
+      margin-left: 20px;
+      margin-top: 20px;
+
+      &__wrapper {
+        margin: 3px 0;
+      }
+    }
+  }
+
+  .next-of-kin-card {
+    .details {
+      margin-left: 20px;
+    }
+  }
+
+  .user-info-div {
+    .details {
+      margin-left: unset;
+    }
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .bank-info,
+  .employment-info,
+  .user-info-div,
+  .next-of-kin-card {
+    .details {
+      margin-left: unset;
+    }
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .bank-info,
+  .employment-info,
+  .next-of-kin-card {
+    .details {
+      margin-left: 20px;
+    }
+  }
+}

@@ -48,14 +48,38 @@
 
     .table-wrapper {
       .ant-table {
+        &-title {
+          margin-left: 15px;
+          font-size: 20px;
+          font-weight: 600;
+          color: map-get($colors, husky-blue);
+        }
         &-body {
-          height: calc(100vh - 270px);
+          height: calc(100vh - 320px);
         }
       }
     }
 
     .hide-loan-history {
       display: none;
+    }
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .loan-history {
+    .user-details-container {
+      &__toggle-btn {
+        display: none;
+      }
+    }
+
+    .table-wrapper {
+      .ant-table {
+        &-body {
+          height: 38vh;
+        }
+      }
     }
   }
 }

@@ -1,72 +1,101 @@
 .user-details,
 .active-loan {
   box-shadow: 0 1px 2px 2px #f5f5f5;
-  padding: 10px 5px;
+  padding: 10px;
   margin: 20px 0;
   border-radius: 4px;
+  background-image: url('../images/Flat-Mountains.svg');
+  background-size: cover;
+  background-position: center;
+  color: white;
 
-  &__info {
-    display: grid;
-    align-items: center;
-    grid-template-columns: 35% auto;
-    grid-column-gap: 10px;
-    margin-bottom: 20px;
-
-    &__avatar {
-      height: 100%;
+  &__wrapper,
+  &__details {
+    &__title {
+      text-align: center;
+      margin-bottom: 15px;
+      h3 {
+        color: map-get($colors, plain-white);
+      }
+    }
+    &__body {
+      display: grid;
+      grid-template-columns: 30% auto;
       width: 100%;
+      grid-column-gap: 10px;
 
-      img {
-        height: 100%;
+      .avatar {
+        border-radius: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2px;
+        height: 85px;
+        width: 85px;
+        border: 1px solid white;
+
+        img {
+          object-fit: cover;
+          object-position: center;
+          height: 80px;
+          width: 80px;
+          border-radius: 100%;
+        }
+
+        &-icon {
+          height: 80px;
+          width: 80px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: map-get($colors, albino-blue);
+
+          .ant-avatar-string {
+            font-size: 30px;
+            text-transform: uppercase;
+          }
+        }
+      }
+
+      .info-div {
+        .data {
+          margin: 2.5px 0;
+
+          &--name {
+            text-transform: capitalize;
+          }
+        }
+      }
+    }
+
+    &__footer {
+      margin-top: 20px;
+      button {
+        height: 35px;
         width: 100%;
-        object-fit: cover;
-        object-position: center;
-        border-radius: 4px;
-      }
-    }
-
-    &__content {
-      .data {
-        margin: 0 0 2px;
-        color: map-get($colors, text-blue);
-      }
-    }
-  }
-
-  &__btns-div {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    border: 1px solid map-get($colors, faded-border);
-    padding: 10px 0;
-
-    .btn {
-      height: 35px;
-      width: 120px;
-      border-radius: 4px;
-
-      i {
-        font-size: 14px;
-        margin-right: 10px;
-      }
-
-      &--calls {
-        background: map-get($colors, call-green);
-        border: 1px solid map-get($colors, call-green);
-        color: map-get($colors, plain-white);
-      }
-
-      &--sms {
-        background: map-get($colors, albino-blue);
-        border: 1px solid map-get($colors, albino-blue);
-        color: map-get($colors, plain-white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        background-color: map-get($colors, plain-white);
+        border-radius: 5px;
+        outline: none;
+        color: map-get($colors, husky-blue);
+        font-weight: bold;
       }
     }
   }
 }
 
 .active-loan {
+  background-image: url('../images/Scattered-Forcefields.svg');
   &__details {
+    &__title {
+      h3 {
+        color: map-get($colors, text-blue);
+        font-weight: 800;
+      }
+    }
     .data {
       margin: 0 0 5px;
       color: map-get($colors, text-blue);
@@ -81,7 +110,7 @@
   }
 
   .reveal-btn-div {
-    margin: 20px 0;
+    margin: 10px 0 0;
     text-align: center;
   }
 
@@ -92,6 +121,7 @@
     overflow-y: scroll;
     border-radius: 4px;
     border: 1px solid map-get($colors, albino-blue);
+    background-color: map-get($colors, plain-white);
   }
 }
 
@@ -113,6 +143,38 @@
   }
 }
 
+@media screen and (min-width: 750px) {
+  .user-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 15px;
+    padding: 0 10px;
+
+    .user-details,
+    .active-loan {
+      width: unset;
+    }
+  }
+
+  .active-loan {
+    position: relative;
+    &__details {
+      .content {
+        height: 130px;
+        overflow-y: scroll;
+      }
+    }
+
+    &__timeline {
+      position: absolute;
+      top: 10px;
+      height: 170px;
+      width: calc(100% - 20px);
+      margin: 0;
+    }
+  }
+}
+
 @media screen and (min-width: 800px) {
   .user-container {
     display: grid;
@@ -123,43 +185,23 @@
     .user-details,
     .active-loan {
       margin: 0;
-      height: 205px;
+      height: 230px;
       position: relative;
-      width: unset;
 
-      &__info {
-        height: 130px;
-        overflow-y: scroll;
-
-        &__avatar {
-          height: 130px;
+      &__wrapper {
+        &__footer {
+          margin: unset;
+          position: absolute;
+          width: calc(100% - 20px);
+          bottom: 10px;
         }
-
-        &__content {
-          height: 100%;
-          overflow-y: scroll;
-        }
-      }
-
-      &__btns-div {
-        border: unset;
-        padding: unset;
-      }
-
-      &__timeline {
-        position: absolute;
-        top: 0;
-        background: white;
-        height: 130px;
-        width: calc(100% - 10px);
-        overflow-y: scroll;
       }
 
       .reveal-btn-div {
         margin: unset;
         position: absolute;
         bottom: 10px;
-        width: calc(100% - 10px);
+        width: calc(100% - 20px);
       }
     }
   }
@@ -171,7 +213,7 @@
     .user-details,
     .active-loan {
       margin: 10px;
-      height: 215px;
+      height: 250px;
       padding: 10px;
       width: 450px;
 
