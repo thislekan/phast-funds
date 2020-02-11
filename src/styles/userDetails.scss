@@ -70,9 +70,13 @@
 
     &__footer {
       margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
       button {
         height: 35px;
-        width: 100%;
+        width: 150px;
         display: flex;
         align-items: center;
         justify-content: center;

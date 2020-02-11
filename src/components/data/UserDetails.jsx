@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ActiveLoan from './ActiveLoan';
-import UserDetailsModal from './UserDetailsModal';
+import DetailsModal from './DetailsModal';
 import UserCard from './UserCard';
+import FullUserInfo from './FullUserInfo';
 import apiCall from '../../utils/apiCall';
 
 const initialState = {
@@ -61,11 +62,12 @@ const UserDetails = (props) => {
         statusHistory={state.statusHistory}
       />
       {state.showDetailsModal && (
-        <UserDetailsModal
+        <DetailsModal
           showDetailsModal={state.showDetailsModal}
           toggleDetailsModal={toggleDetailsModal}
-          user={user}
-        />
+        >
+          <FullUserInfo user={user} />
+        </DetailsModal>
       )}
     </div>
   );

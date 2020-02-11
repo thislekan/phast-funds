@@ -26,6 +26,24 @@
         margin: 0 0 5px;
       }
     }
+
+    .btn-div {
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      button {
+        background-color: map-get($colors, albino-blue);
+        height: 35px;
+        width: 140px;
+        cursor: pointer;
+        border: 1px solid map-get($colors, albino-blue);
+        color: map-get($colors, plain-white);
+        font-weight: 500;
+        border-radius: 5px;
+      }
+    }
   }
 
   .dash-header {
@@ -49,6 +67,15 @@
     height: calc(100vh - 70px);
     padding: unset;
     margin: unset;
+
+    &__details {
+      .data {
+        &--purpose,
+        &--status {
+          display: none;
+        }
+      }
+    }
 
     .details-wrapper {
       display: grid;

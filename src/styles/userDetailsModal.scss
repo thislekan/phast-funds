@@ -21,6 +21,12 @@
 
   &__wrapper {
     margin: 55px 0;
+
+    &--gridless {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }
 

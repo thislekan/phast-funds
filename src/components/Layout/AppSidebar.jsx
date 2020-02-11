@@ -17,10 +17,6 @@ const AppSideBar = () => (
           <Icon type="money-collect" />
           <span>Loans</span>
         </Link>
-        <Link to="/" className="nav-item">
-          <Icon type="contacts" />
-          <span>Profile</span>
-        </Link>
       </div>
       <div className="sidebar__wrapper__logout-div">
         <button>

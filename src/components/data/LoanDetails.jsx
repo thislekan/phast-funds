@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import UserCard from './UserCard';
-import UserDetailsModal from './UserDetailsModal';
+import DetailsModal from './DetailsModal';
+import FullLoanDetails from './FullLoanDetails';
+import FullUserInfo from './FullUserInfo';
 
 const LoanDetails = () => {
   const details = JSON.parse(sessionStorage.getItem('info'));
-  const [state, setState] = useState({ showDetailsModal: false });
+  const [state, setState] = useState({
+    showUserDetailsModal: false,
+    showLoanDetailsModal: false,
+  });
   const toggleDetailsModal = () =>
-    setState({ ...state, showDetailsModal: !state.showDetailsModal });
+    setState({ ...state, showUserDetailsModal: !state.showUserDetailsModal });
+  const toggleLoanDetailsModal = () =>
+    setState({ ...state, showLoanDetailsModal: !state.showLoanDetailsModal });
   return (
     <div className="details-wrapper">
       <UserCard user={details.user} toggleDetailsModal={toggleDetailsModal} />
@@ -31,22 +38,24 @@ const LoanDetails = () => {
           </p>
           <p>
             <span className="naira">&#x20A6;</span>
-            {details.amount_repaid ? details.amount_repaid : 0}
+            {details.amount_repaid
+              ? Number(details.amount_repaid).toLocaleString()
+              : 0}
           </p>
         </div>
         <div className="data duration">
           <p>
-            <b>Duration: </b>
+            <b>Tenor: </b>
           </p>
           <p>{details.tenor} days</p>
         </div>
-        <div className="data ">
+        <div className="data data--status">
           <p>
             <b>Status: </b>
           </p>
           <p>{details.status}</p>
         </div>
-        <div className="data">
+        <div className="data data--purpose">
           <p>
             <b>Purpose: </b>
           </p>
@@ -63,14 +72,28 @@ const LoanDetails = () => {
               : Number(details.amount).toLocaleString()}
           </p>
         </div>
+        <div className="btn-div">
+          <button onClick={toggleLoanDetailsModal}>More Details</button>
+        </div>
       </div>
 
-      {state.showDetailsModal && (
-        <UserDetailsModal
-          showDetailsModal={state.showDetailsModal}
+      {state.showUserDetailsModal && (
+        <DetailsModal
+          showUserDetailsModal={state.showUserDetailsModal}
           toggleDetailsModal={toggleDetailsModal}
-          user={details.user}
-        />
+        >
+          <FullUserInfo user={details.user} />
+        </DetailsModal>
+      )}
+
+      {state.showLoanDetailsModal && (
+        <DetailsModal
+          showUserDetailsModal={state.showLoanDetailsModal}
+          toggleDetailsModal={toggleLoanDetailsModal}
+          gridless
+        >
+          <FullLoanDetails details={details} />
+        </DetailsModal>
       )}
     </div>
   );
