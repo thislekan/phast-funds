@@ -40,7 +40,6 @@ const UserDetails = (props) => {
         loading: false,
         statusHistory: response.data.status_history,
       });
-      console.log(response, '++');
     };
     getActiveLoan();
     // eslint-disable-next-line react-hooks/exhaustive-deps

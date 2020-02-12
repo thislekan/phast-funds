@@ -1,0 +1,82 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  // margin-bottom: 100px;
+
+  &__right-wrapper {
+    display: flex;
+    align-items: center;
+    // justify-content: space-around;
+    width: 200px;
+    & > div {
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      .limit {
+        background-color: map-get($colors, albino-blue);
+        color: map-get($colors, plain-white);
+        padding: 5px 10px;
+        margin: 0 1px;
+        // border-radius: 5px;
+      }
+
+      .limit-list {
+        position: absolute;
+        top: -140px;
+        background-color: map-get($colors, plain-white);
+        z-index: 3;
+        color: map-get($colors, albino-blue);
+        font-size: 15px;
+        border: 1px solid white;
+        width: 70px;
+
+        &--hide {
+          display: none;
+        }
+
+        li {
+          list-style: none;
+          text-align: center;
+          padding: 10px 5px;
+          margin: 1px 0;
+          border: 1px solid map-get($colors, faded-border);
+          cursor: pointer;
+        }
+      }
+
+      .limit-selector {
+        border: 1px solid map-get($colors, faded-border);
+        padding: 2.5px 5px;
+        cursor: pointer;
+        .anticon {
+          font-size: 20px;
+          color: map-get($colors, albino-blue);
+        }
+      }
+    }
+    p {
+      margin: 0;
+    }
+  }
+
+  &__left-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    &__btns {
+      .control {
+        border: 1px solid map-get($colors, faded-border);
+        background-color: transparent;
+        color: map-get($colors, albino-blue);
+        cursor: pointer;
+        margin: 0 1px;
+        padding: 5px 10px;
+        border-radius: 5px;
+      }
+    }
+  }
+}

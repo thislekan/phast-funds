@@ -23,7 +23,7 @@ const Users = () => {
           ...state,
           error: response.message.non_field_errors[0],
         });
-      console.log(response);
+
       const userData = [];
       response.results.forEach((element) => {
         const formatted = formatData(element);

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter, useHistory, useLocation } from 'react-router-dom';
 import { Table, Form, Icon, Input, Button } from 'antd';
+import Pagination from './Pagination';
 
 const loanColumns = [
   {
@@ -103,11 +104,34 @@ const columnsSwitch = (props) => {
   return usersColumns;
 };
 
+const initialState = { data: [], info: {}, pageData: {}, pageLimit: 10, currentPage: 1 }
+
 const DataTable = (props) => {
   const history = useHistory();
   const { pathname } = useLocation();
-  const [state, setState] = useState({ data: [], info: {} });
   addOrRemoveDueDate(pathname);
+  const [state, setState] = useState(initialState);
+  const setpageLimit = (e) =>
+    setState({ ...state, pageLimit: e.target.value });
+  const setCurrentPage = (value) => setState({...state, currentPage: value});
+
+  useEffect(() => {
+    const pages = Array.from(
+      { length: Math.ceil(props.data.length / state.pageLimit) },
+      (v, index) => index
+    )
+    pages.forEach(element => {
+      let start = element;
+      let end = state.pageLimit;
+      setState({...state, pageData: {
+        ...state.pageData,
+        [`data${element + 1}`]: props.data.slice(start, end)
+      }});
+      start = state.pageLimit + element;
+      end += state.pageLimit
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.data])
   const filterData = (e) => {
     const { value } = e.target;
     setState({ data: [...value] });
@@ -123,9 +147,6 @@ const DataTable = (props) => {
               placeholder="Enter search item"
               onChange={filterData}
             />
-            {/* <button className="search-cancel">
-              <Icon type="delete" />
-            </button> */}
           </Form.Item>
           <Form.Item>
             <Button htmlType="submit" type="primary">
@@ -148,11 +169,12 @@ const DataTable = (props) => {
             };
           }}
           columns={columnsSwitch(props)}
-          dataSource={(state.data.length && state.data) || props.data}
+          dataSource={state.pageData[`data${state.currentPage}`]}
           loading={props.isLoading}
           pagination={{ showSizeChanger: true }}
           title={() => props.title}
         />
+        <Pagination pageLimit={state.pageLimit} setpageLimit={setpageLimit} setCurrentPage={setCurrentPage} />
       </div>
     </div>
   );
