@@ -56,7 +56,7 @@ const Users = () => {
   const prevOrNext = async (route) => dataFetcher(route, true);
   useEffect(() => {
     const getAllUsers = async () => {
-      if (searchTerm.name) return dataFetcher(`accounts/?search=${searchTerm.name}`);
+      if (searchTerm.name) return dataFetcher(`accounts/users/?search=${searchTerm.name}`);
       return dataFetcher('accounts/users/');
     };
     getAllUsers();
