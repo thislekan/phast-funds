@@ -20,11 +20,10 @@ const formatData = (info) => ({
 const initialState = { showUserDetails: false, history: [], loading: false };
 
 const LoanHistory = () => {
-  const user = JSON.parse(sessionStorage.getItem('info'));
+  const info = JSON.parse(sessionStorage.getItem('info'));
   const { id } = useParams();
   const [state, setState] = useState(initialState);
-  const toggleUserDetails = () =>
-    setState({ ...state, showUserDetails: !state.showUserDetails });
+  const toggleUserDetails = () => setState({ ...state, showUserDetails: !state.showUserDetails });
 
   const errorCatcher = (error) => setState({ ...state, error });
 
@@ -51,13 +50,11 @@ const LoanHistory = () => {
   return (
     <div
       className={`${
-        state.showUserDetails
-          ? 'loan-history loan-history--scrolled-height'
-          : 'loan-history'
+        state.showUserDetails ? 'loan-history loan-history--scrolled-height' : 'loan-history'
       }`}
     >
       <div className="user-details-container">
-        <UserDetails hideContainer={state.showUserDetails} user={user} />
+        <UserDetails hideContainer={state.showUserDetails} user={info.user ? info.user : info} />
         <Button
           className="user-details-container__toggle-btn"
           type="primary"

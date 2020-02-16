@@ -34,7 +34,6 @@ const initialState = {
 const Users = () => {
   const { search } = useLocation();
   const searchTerm = queryString.parse(search);
-  console.log(searchTerm);
   const [state, setState] = useState(initialState);
   const dataFetcher = async (route, prevOrNext) => {
     setState({ ...state, loading: true });
