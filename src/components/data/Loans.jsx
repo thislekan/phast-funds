@@ -15,44 +15,59 @@ const formatData = (info) => ({
   info,
 });
 
+const organizeData = (response) => {
+  const loanData = [];
+  response.results.forEach((element) => {
+    const formatted = formatData(element);
+    loanData.push(formatted);
+  });
+  return loanData;
+};
+
+const initialState = {
+  data: [],
+  error: '',
+  loading: false,
+  next: '',
+  previous: '',
+};
+
 const Loans = (props) => {
-  const [state, setState] = useState({ data: [], error: '', loading: false });
-  const errorCatcher = (error) =>
+  const [state, setState] = useState(initialState);
+  const errorCatcher = (error) => setState({ ...state, error });
+  const dataFetcher = async (route, prevOrNext) => {
+    setState({ ...state, loading: true });
+    const response = await apiCall(route, 'GET', null, true, prevOrNext);
+    if (response.message) {
+      return errorCatcher(response.message.non_field_errors[0]);
+    }
+    const loanData = organizeData(response);
     setState({
       ...state,
-      error,
-      // showModal: true,
+      data: loanData,
+      loading: false,
+      next: response.next,
+      previous: response.previous,
     });
+  };
+  const prevOrNext = async (route) => dataFetcher(route, true);
 
   useEffect(() => {
-    const getAllLoans = async () => {
-      setState({ ...state, loading: true });
-      const response = await apiCall('loans/', 'GET', null, true);
-
-      if (response.message) {
-        return errorCatcher(response.message.non_field_errors[0]);
-      }
-
-      const loanData = [];
-      response.results.forEach((element) => {
-        const formatted = formatData(element);
-        loanData.push(formatted);
-      });
-      setState({ data: loanData, loading: false });
-    };
+    const getAllLoans = async () => dataFetcher('loans/');
     getAllLoans();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <Col
-      xs={24}
-      className={`${props.hideLoanHistory ? 'hide-loan-history' : ''}`}
-    >
+    <Col xs={24} className={`${props.hideLoanHistory ? 'hide-loan-history' : ''}`}>
       <DataTable
         loanData
         data={props.loanHistory || state.data}
         isLoading={state.loading}
         title="Loans Table"
+        previous={state.previous}
+        next={state.next}
+        getPrevious={prevOrNext}
+        getNext={prevOrNext}
       />
     </Col>
   );

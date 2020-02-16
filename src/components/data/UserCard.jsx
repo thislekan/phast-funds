@@ -13,14 +13,12 @@ const UserCard = (props) => (
             <img src={props.user.profile_picture} alt="avatar" />
           ) : (
             <Avatar className="avatar-icon">
-              {props.user.first_name[0] + ' ' + props.user.last_name[0]}
+              {props.user.first_name + ' ' + props.user.last_name}
             </Avatar>
           )}
         </div>
         <div className="info-div">
-          <p className="data data--name">
-            {props.user.first_name + ' ' + props.user.last_name}
-          </p>
+          <p className="data data--name">{props.user.first_name + ' ' + props.user.last_name}</p>
           <p className="data data--email">{props.user.email}</p>
           <p className="data data--phone">{props.user.phone_number}</p>
           <p className="data data--address">{props.user.address}</p>

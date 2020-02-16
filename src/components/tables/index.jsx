@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter, useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Table, Form, Icon, Input, Button } from 'antd';
 import Pagination from './Pagination';
 
@@ -104,47 +104,62 @@ const columnsSwitch = (props) => {
   return usersColumns;
 };
 
-const initialState = { data: [], info: {}, pageData: {}, pageLimit: 10, currentPage: 1 }
+const initialState = {
+  data: [],
+  info: {},
+  pageData: {},
+  pageLimit: 10,
+  currentPage: 1,
+};
 
 const DataTable = (props) => {
   const history = useHistory();
   const { pathname } = useLocation();
   addOrRemoveDueDate(pathname);
   const [state, setState] = useState(initialState);
-  const setpageLimit = (e) =>
-    setState({ ...state, pageLimit: e.target.value });
-  const setCurrentPage = (value) => setState({...state, currentPage: value});
+  const setpageLimit = (e) => setState({ ...state, pageLimit: e.target.value });
+  const setCurrentPage = (value) => setState({ ...state, currentPage: value });
 
   useEffect(() => {
     const pages = Array.from(
       { length: Math.ceil(props.data.length / state.pageLimit) },
       (v, index) => index
-    )
-    pages.forEach(element => {
+    );
+    pages.forEach((element) => {
       let start = element;
       let end = state.pageLimit;
-      setState({...state, pageData: {
-        ...state.pageData,
-        [`data${element + 1}`]: props.data.slice(start, end)
-      }});
+      setState({
+        ...state,
+        pageData: {
+          ...state.pageData,
+          [`data${element + 1}`]: props.data.slice(start, end),
+        },
+      });
       start = state.pageLimit + element;
-      end += state.pageLimit
+      end += state.pageLimit;
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.data])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.data]);
   const filterData = (e) => {
-    const { value } = e.target;
-    setState({ data: [...value] });
+    const { value, name } = e.target;
+    setState({ ...state, [name]: value });
   };
 
   return (
     <div className="table-wrapper">
       <div className="dash-header__search">
-        <Form layout="inline" onSubmit={(e) => e.preventDefault()}>
+        <Form
+          layout="inline"
+          onSubmit={(e) => {
+            e.preventDefault();
+            history.push(`users?name=${state.name}`);
+          }}
+        >
           <Form.Item>
             <Input
               prefix={<Icon type="form" />}
               placeholder="Enter search item"
+              name="name"
               onChange={filterData}
             />
           </Form.Item>
@@ -171,13 +186,21 @@ const DataTable = (props) => {
           columns={columnsSwitch(props)}
           dataSource={state.pageData[`data${state.currentPage}`]}
           loading={props.isLoading}
-          pagination={{ showSizeChanger: true }}
           title={() => props.title}
         />
-        <Pagination pageLimit={state.pageLimit} setpageLimit={setpageLimit} setCurrentPage={setCurrentPage} />
+        <Pagination
+          pageLimit={state.pageLimit}
+          setpageLimit={setpageLimit}
+          setCurrentPage={setCurrentPage}
+          currentPage={state.currentPage}
+          next={props.next}
+          previous={props.previous}
+          getPrevious={props.getPrevious}
+          getNext={props.getNext}
+        />
       </div>
     </div>
   );
 };
 
-export default withRouter(DataTable);
+export default DataTable;

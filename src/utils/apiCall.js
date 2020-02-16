@@ -24,17 +24,17 @@ const options = {
 
 const formatOptions = (method, authorize, payload) => {
   if (method) options.method = method;
-  if (authorize)
-    options.headers.Authorization = `Token ${sessionStorage.getItem('token')}`;
+  if (authorize) options.headers.Authorization = `Token ${sessionStorage.getItem('token')}`;
   if (payload) options.body = JSON.stringify(payload);
   return options;
 };
 
-const apiCall = async (route, method, payload, authorize) => {
+const apiCall = async (route, method, payload, authorize, fullRoute) => {
   let data;
   let apiError;
   const apiOptions = formatOptions(method, authorize, payload);
-  await fetch(endpoint + route, apiOptions)
+  const apiRoute = fullRoute ? route : endpoint + route;
+  await fetch(apiRoute, apiOptions)
     .then(handleResponse)
     .then((res) => (data = res))
     .catch((err) => (apiError = err));

@@ -3,12 +3,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
-  // margin-bottom: 100px;
 
   &__right-wrapper {
     display: flex;
     align-items: center;
-    // justify-content: space-around;
     width: 200px;
     & > div {
       display: flex;
@@ -20,7 +18,6 @@
         color: map-get($colors, plain-white);
         padding: 5px 10px;
         margin: 0 1px;
-        // border-radius: 5px;
       }
 
       .limit-list {
@@ -76,6 +73,19 @@
         margin: 0 1px;
         padding: 5px 10px;
         border-radius: 5px;
+        outline: none;
+        transition: 100ms ease-in-out;
+
+        &:hover,
+        &--pages--active {
+          color: map-get($colors, plain-white);
+          background-color: map-get($colors, albino-blue);
+        }
+
+        &--pages--active:hover {
+          color: map-get($colors, albino-blue);
+          background-color: transparent;
+        }
       }
     }
   }
